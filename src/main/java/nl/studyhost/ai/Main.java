@@ -14,6 +14,8 @@ public class Main {
         start.createChildren(7, 7, 823544, start);
 
         benchmarkTreeSearch("DFS", () -> start.dfs("Exit"), () -> Node.dfsSearches);
+        benchmarkTreeSearch("BFS (Stack)", () -> start.stackBfs("Exit"), () -> Node.stackBfsSearches);
+        benchmarkTreeSearch("BFS (Queue)", () -> start.queueBfs("Exit"), () -> Node.queueBfsSearches);
     }
 
     private static void benchmarkTreeSearch(String method, Supplier<Node> runnable, Supplier<Integer> searches) {

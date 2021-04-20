@@ -64,6 +64,48 @@ public class Node {
         return null;
     }
 
+    /*
+     Stack based breadth-first search
+     */
+    public static int stackBfsSearches = 0;
+    public Node stackBfs(String data) {
+        Stack<Node> stack = new Stack<>();
+        stack.add(this);
+
+        while (!stack.isEmpty()) {
+            for (Node node : stack) {
+                stackBfsSearches++;
+                if (node.getData().equals(data)) return node;
+            }
+
+            Stack<Node> next = new Stack<>();
+            for (Node node : stack) {
+                next.addAll(node.getChildren());
+            }
+            stack = next;
+        }
+        return null;
+    }
+
+    /*
+     Queue based breadth-first search
+     */
+    public static int queueBfsSearches = 0;
+    public Node queueBfs(String data) {
+        queueBfsSearches++;
+        if (this.getData().equals(data)) return this;
+        Queue<Node> queue = new LinkedList<>(this.getChildren());
+
+        Node child;
+        while (!queue.isEmpty()) {
+            child = queue.poll();
+            queueBfsSearches++;
+            if (child.getData().equals(data)) return child;
+            queue.addAll(child.getChildren());
+        }
+        return null;
+    }
+
     @Override
     public String toString() {
         return "Node{" +
